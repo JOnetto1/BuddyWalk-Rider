@@ -1,5 +1,5 @@
 <resources>
-    <string name="aplicación">Mi Aplicación</string>
+    <string name="app">Mi Aplicación</string>
     <string name="hola_mundo">Hola Mundo!</string>
     <string name="button1">Botón</string>
     <string name="inicio">Inicio</string>

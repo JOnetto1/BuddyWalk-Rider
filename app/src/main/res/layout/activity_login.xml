@@ -36,7 +36,8 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="@color/md_theme_light_onPrimary"
-                android:text="@string/login_title_view" />
+                android:text="@string/login_title_view"
+                tools:ignore="RtlCompat" />
 
             <ImageView
                 android:layout_margin="24dp"
@@ -73,6 +74,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/et_loginEmail"
                 android:background="@drawable/round_inputs"
                 android:paddingLeft="16dp"
                 android:layout_marginLeft="24dp"
@@ -86,6 +88,7 @@
                 android:layout_weight="1" />
 
             <EditText
+                android:id="@+id/et_loginPassword"
                 android:background="@drawable/round_inputs"
                 android:paddingLeft="16dp"
                 android:layout_marginTop="24dp"
@@ -107,6 +110,7 @@
             android:layout_weight="0.6"
             android:orientation="vertical">
             <Button
+                android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -115,16 +119,18 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/round_button"
                 android:textStyle="bold"
+                android:onClick="toLogin"
                 android:text="@string/login">
             </Button>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/md_theme_light_primary"
+                android:textColor="@color/md_theme_dark_inversePrimary"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                android:onClick="toForgotPassword"
                 android:text="@string/forgotPass">
             </TextView>
 
@@ -166,7 +172,7 @@
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/md_theme_light_primary"
+                    android:textColor="@color/md_theme_dark_inversePrimary"
                     android:textStyle="bold"
                     android:textAlignment="textEnd"
                     android:paddingRight="4dp"

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.grimlin31.buddywalkowner;
 
 import org.junit.Test;
 

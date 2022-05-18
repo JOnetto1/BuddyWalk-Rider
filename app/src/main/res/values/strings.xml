@@ -1,9 +1,12 @@
 <resources>
-    <string name="app">Mi Aplicación</string>
-    <string name="hola_mundo">Hola Mundo!</string>
-    <string name="button1">Botón</string>
-    <string name="inicio">Inicio</string>
-    <string name="secundaria">Acción del Botón</string>
-    <string name="textoSecundario">Página Secundaria!</string>
-    <string name="title_activity_maps">Mapa</string>
+    <string name="app_name">BuddyWalkOwner</string>
+    <string name="login_title_view">Already Have an Account?</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
+    <string name="or">OR</string>
+    <string name="google_sign_in">Sign in with Google</string>
+    <string name="forgotPass">FORGOT PASSWORD?</string>
+    <string name="new_user">New User?</string>
+    <string name="register">Register Now</string>
 </resources>

@@ -8,10 +8,24 @@
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_main.xml" value="0.1203125" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/second_activity.xml" value="0.1203125" />
+        <entry key="..\:/Users/ariel/OneDrive/USM/2022-1/Apps Moviles/BuddyWalk/App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.14" />
+        <entry key="..\:/Users/ariel/OneDrive/USM/2022-1/Apps Moviles/BuddyWalk/App/app/src/main/res/mipmap-anydpi-v26/buddywalk_icons.xml" value="0.14" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.202" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/App/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/App/app/src/main/res/layout/activity_maps.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/App/app/src/main/res/layout/second_activity.xml" value="0.25" />
+        <entry key="app/src/main/res/drawable/back_figure_form.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/login_wave.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/person.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/person_color.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/register_wave.xml" value="0.183" />
+        <entry key="app/src/main/res/drawable/round_button.xml" value="0.194" />
+        <entry key="app/src/main/res/drawable/round_button_google.xml" value="0.27" />
+        <entry key="app/src/main/res/drawable/wave.xml" value="0.183" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27445652173913043" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.34010416666666665" />
+        <entry key="app/src/main/res/layout/second_activity.xml" value="0.17604166666666668" />
       </map>
     </option>
   </component>

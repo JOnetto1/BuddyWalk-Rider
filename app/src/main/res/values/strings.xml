@@ -9,4 +9,9 @@
     <string name="forgotPass">FORGOT PASSWORD?</string>
     <string name="new_user">New User?</string>
     <string name="register">Register Now</string>
+
+
+    <string name="frame1">Paseos</string>
+    <string name="frame2">Home</string>
+    <string name="frame3">Preferencias</string>
 </resources>

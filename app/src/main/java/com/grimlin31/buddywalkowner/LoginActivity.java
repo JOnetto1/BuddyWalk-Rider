@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             emptyInputEditText();
         } else {
             //Login failure
-            Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Wrong email address or password", Toast.LENGTH_SHORT).show();
         }
     }
 

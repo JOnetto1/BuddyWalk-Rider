@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Editar datos" />
+            android:text="Edit profile" />
 
         <Button
             android:id="@+id/help"
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ayuda" />
+            android:text="Help" />
 
         <Button
             android:id="@+id/logout"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="toLogout"
-            android:text="Log out" />
+            android:text="Logout" />
 
 
     </LinearLayout>

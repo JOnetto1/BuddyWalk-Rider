@@ -2,6 +2,7 @@ package com.grimlin31.buddywalkowner.FragmentContainer;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -9,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -23,25 +25,38 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.grimlin31.buddywalkowner.R;
 import com.grimlin31.buddywalkowner.WalkRiderHomeActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SecondFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SecondFragment extends Fragment implements OnMapReadyCallback {
+public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener,
+        OnMapReadyCallback {
 
-    GoogleMap mGoogleMap;
+    public static final String EXTRA_MESSAGE = "com.example.myapplication.MESSAGE";
+    private static final int TAG_CODE_PERMISSION_LOCATION = 1;
+    GoogleMap mMap;
     MapView mMapView;
     View mView;
     LocationManager locManager;
     LocationListener locListener;
     Location loc;
     LatLng latLng;
+    List<Marker> markers;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -105,11 +120,30 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap map) {
+        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+            map.setMapStyle(new MapStyleOptions(getResources().getString(R.string.dia_json)));
+            map.setMyLocationEnabled(true);
+            map.getUiSettings().setMyLocationButtonEnabled(true);
+
+            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            map.setOnMarkerClickListener(this);
+            map.getUiSettings().setMapToolbarEnabled(false);
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    TAG_CODE_PERMISSION_LOCATION);
+        }
         MapsInitializer.initialize(getContext());
 
-        mGoogleMap = googleMap;
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap = map;
+        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         /*
         if(checkPermission()) {
@@ -118,7 +152,7 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
         }
         */
         CameraPosition USM = CameraPosition.builder().target(latLng).zoom(16).bearing(0).tilt(45).build();
-        mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(USM));
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(USM));
 
     }
 
@@ -127,6 +161,29 @@ public class SecondFragment extends Fragment implements OnMapReadyCallback {
                 Manifest.permission.ACCESS_FINE_LOCATION);
 
         return result == PackageManager.PERMISSION_GRANTED;
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        Intent intent = new Intent(getActivity(), FirstFragment.class);
+        String message = marker.getId();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
     }
 
 }

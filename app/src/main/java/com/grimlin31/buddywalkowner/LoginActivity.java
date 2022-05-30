@@ -3,6 +3,7 @@ package com.grimlin31.buddywalkowner;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +38,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void toRegister(View view) {
+        Intent gotoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(gotoRegister);
+        Toast.makeText(getApplicationContext(), "yikes", Toast.LENGTH_SHORT).show();
+
     }
 
     public void toLogin(View view) {
@@ -47,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //Verificar valores de campos
 
-        if(email.getText().toString().equals("admin") && password.getText().toString().equals("123"))
-        //if(databaseHelper.checkUser(email.getText().toString().trim(), password.getText().toString().trim()))
+        //if(email.getText().toString().equals("admin") && password.getText().toString().equals("123"))
+        if(databaseHelper.checkUser(email.getText().toString().trim(), password.getText().toString().trim()))
         {
             //Login success
             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();

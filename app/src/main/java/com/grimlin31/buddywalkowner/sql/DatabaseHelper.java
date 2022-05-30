@@ -23,10 +23,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COLUMN_USER_ID = "user_id";
     private static final String COLUMN_USER_EMAIL = "user_email";
     private static final String COLUMN_USER_PASSWORD = "user_password";
+    private static final String COLUMN_USER_USERNAME = "user_username";
 
     //SQL Queries
     private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" +
             COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_USER_USERNAME + " TEXT, " +
             COLUMN_USER_EMAIL + " TEXT, " +
             COLUMN_USER_PASSWORD + " TEXT" + ")";
 
@@ -56,6 +58,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_USERNAME, user.getUsername());
         values.put(COLUMN_USER_EMAIL, user.getEmail());
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
         // Inserting Row
@@ -73,6 +76,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String[] columns = {
                 COLUMN_USER_ID,
                 COLUMN_USER_EMAIL,
+                COLUMN_USER_USERNAME,
                 COLUMN_USER_PASSWORD
         };
         // sorting orders
@@ -100,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
                 user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
                 user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
+                user.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USER_USERNAME)));
                 // Adding user record to list
                 userList.add(user);
             } while (cursor.moveToNext());
@@ -119,6 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COLUMN_USER_EMAIL, user.getEmail());
         values.put(COLUMN_USER_PASSWORD, user.getPassword());
+        values.put(COLUMN_USER_USERNAME, user.getUsername());
         // updating row
         db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?",
                 new String[]{String.valueOf(user.getId())});

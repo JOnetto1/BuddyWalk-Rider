@@ -2,16 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/firstFragment"
+        android:orderInCategory="1"
         android:icon="@android:drawable/ic_menu_view"
         android:title="@string/frame1"/>
 
     <item
         android:id="@+id/secondFragment"
+        android:orderInCategory="0"
         android:icon="@android:drawable/ic_menu_mylocation"
         android:title="@string/frame2"/>
 
     <item
         android:id="@+id/thirdFragment"
+        android:orderInCategory="2"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/frame3"/>
 </menu>

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.grimlin31.buddywalkowner.SaveSharedPreferences.SavedSharedPreference;
 import com.grimlin31.buddywalkowner.sql.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -35,12 +36,17 @@ public class LoginActivity extends AppCompatActivity {
         // status bar is hidden, so hide that too if necessary.
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+        if(SavedSharedPreference.getUserName(LoginActivity.this).length() != 0){
+            Intent gotoHome = new Intent(LoginActivity.this, WalkRiderHomeActivity.class);
+            startActivity(gotoHome);
+        }
+
     }
 
     public void toRegister(View view) {
         Intent gotoRegister = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(gotoRegister);
-        Toast.makeText(getApplicationContext(), "yikes", Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -52,11 +58,13 @@ public class LoginActivity extends AppCompatActivity {
 
         //Verificar valores de campos
 
-        //if(email.getText().toString().equals("admin") && password.getText().toString().equals("123"))
         if(databaseHelper.checkUser(email.getText().toString().trim(), password.getText().toString().trim()))
         {
             //Login success
-            Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+            Intent gotoHome = new Intent(LoginActivity.this, WalkRiderHomeActivity.class);
+            SavedSharedPreference.setUserName(LoginActivity.this, email.getText().toString());
+            startActivity(gotoHome);
+
             emptyInputEditText();
         } else {
             //Login failure

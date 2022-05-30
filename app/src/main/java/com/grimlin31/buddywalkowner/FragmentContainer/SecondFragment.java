@@ -1,10 +1,19 @@
 package com.grimlin31.buddywalkowner.FragmentContainer;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +26,22 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.grimlin31.buddywalkowner.R;
+import com.grimlin31.buddywalkowner.WalkRiderHomeActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SecondFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SecondFragment extends Fragment  implements OnMapReadyCallback {
+public class SecondFragment extends Fragment implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
     MapView mMapView;
     View mView;
+    LocationManager locManager;
+    LocationListener locListener;
+    Location loc;
+    LatLng latLng;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,6 +81,7 @@ public class SecondFragment extends Fragment  implements OnMapReadyCallback {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        latLng = new LatLng(-33.034705, -71.596523);
     }
 
     @Override
@@ -96,10 +111,22 @@ public class SecondFragment extends Fragment  implements OnMapReadyCallback {
         mGoogleMap = googleMap;
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
-        CameraPosition USM = CameraPosition.builder().target(new LatLng(-33.034705, -71.596523)).zoom(16).bearing(0).tilt(45).build();
+        /*
+        if(checkPermission()) {
+            //mGoogleMap.setMyLocationEnabled(true);
+            // Showing the current location in Google Map
+        }
+        */
+        CameraPosition USM = CameraPosition.builder().target(latLng).zoom(16).bearing(0).tilt(45).build();
+        mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(USM));
 
-        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(USM));
+    }
 
+    private boolean checkPermission(){
+        int result = ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
 }

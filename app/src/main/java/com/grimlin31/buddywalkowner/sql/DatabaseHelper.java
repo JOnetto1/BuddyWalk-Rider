@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.grimlin31.buddywalkowner.model.User;
+import com.grimlin31.buddywalkowner.model.Walker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,23 +16,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Database Version
     private static final int DATABASE_VERSION = 1;
     //Database Name
-    private static final String DATABASE_NAME = "UserManager.db";
+    private static final String DATABASE_NAME = "WalkerManager.db";
     //Users Table Name
-    private static final String TABLE_USER = "user";
+    private static final String TABLE_WALKER = "walker";
     //User Table Columns
-    private static final String COLUMN_USER_ID = "user_id";
-    private static final String COLUMN_USER_EMAIL = "user_email";
-    private static final String COLUMN_USER_PASSWORD = "user_password";
-    private static final String COLUMN_USER_USERNAME = "user_username";
+    private static final String COLUMN_WALKER_ID = "walker_id";
+    private static final String COLUMN_WALKER_EMAIL = "walker_email";
+    private static final String COLUMN_WALKER_PASSWORD = "walker_password";
+    private static final String COLUMN_WALKER_USERNAME = "walker_username";
+    private static final String COLUMN_WALKER_LATITUDE = "walker_latitude";
+    private static final String COLUMN_WALKER_LONGITUDE = "walker_longitude";
+    private static final String COLUMN_WALKER_BUSY = "walker_busy";
+    private static final String COLUMN_WALKER_ONLINE = "walker_online";
 
     //SQL Queries
-    private String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" +
-            COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            COLUMN_USER_USERNAME + " TEXT, " +
-            COLUMN_USER_EMAIL + " TEXT, " +
-            COLUMN_USER_PASSWORD + " TEXT" + ")";
+    private String CREATE_WALKER_TABLE = "CREATE TABLE " + TABLE_WALKER + "(" +
+            COLUMN_WALKER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_WALKER_USERNAME + " TEXT, " +
+            COLUMN_WALKER_EMAIL + " TEXT, " +
+            COLUMN_WALKER_PASSWORD + " TEXT," +
+            COLUMN_WALKER_LATITUDE + " TEXT," +
+            COLUMN_WALKER_LONGITUDE + " TEXT," +
+            COLUMN_WALKER_BUSY + " TEXT, " +
+            COLUMN_WALKER_ONLINE + " TEXT " + ")";
 
-    private String DROP_USER_TABLE = "DROP TABLE IF EXISTS " + TABLE_USER;
+    private String DROP_WALKER_TABLE = "DROP TABLE IF EXISTS " + TABLE_WALKER;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -40,12 +48,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_USER_TABLE);
+        db.execSQL(CREATE_WALKER_TABLE);
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop User Table if exist
-        db.execSQL(DROP_USER_TABLE);
+        db.execSQL(DROP_WALKER_TABLE);
         // Create tables again
         onCreate(db);
     }
@@ -53,16 +61,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * This method is to create user record
      *
-     * @param user
+     * @param walker
      */
-    public void addUser(User user) {
+    public void addUser(Walker walker) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_USERNAME, user.getUsername());
-        values.put(COLUMN_USER_EMAIL, user.getEmail());
-        values.put(COLUMN_USER_PASSWORD, user.getPassword());
+        values.put(COLUMN_WALKER_USERNAME, walker.getUsername());
+        values.put(COLUMN_WALKER_EMAIL, walker.getEmail());
+        values.put(COLUMN_WALKER_PASSWORD, walker.getPassword());
+        values.put(COLUMN_WALKER_LATITUDE, walker.getLatitude());
+        values.put(COLUMN_WALKER_LONGITUDE, walker.getLongitude());
+        values.put(COLUMN_WALKER_BUSY, walker.getBusy());
+        values.put(COLUMN_WALKER_ONLINE, walker.getOnline());
         // Inserting Row
-        db.insert(TABLE_USER, null, values);
+        db.insert(TABLE_WALKER, null, values);
         db.close();
     }
     /**
@@ -71,18 +83,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return list
      */
     @SuppressLint("Range")
-    public List<User> getAllUser() {
+    public List<Walker> getAllWalker() {
         // array of columns to fetch
         String[] columns = {
-                COLUMN_USER_ID,
-                COLUMN_USER_EMAIL,
-                COLUMN_USER_USERNAME,
-                COLUMN_USER_PASSWORD
+                COLUMN_WALKER_ID,
+                COLUMN_WALKER_EMAIL,
+                COLUMN_WALKER_USERNAME,
+                COLUMN_WALKER_PASSWORD,
+                COLUMN_WALKER_LATITUDE,
+                COLUMN_WALKER_LONGITUDE,
+                COLUMN_WALKER_BUSY,
+                COLUMN_WALKER_ONLINE
         };
         // sorting orders
         String sortOrder =
-                COLUMN_USER_EMAIL + " ASC";
-        List<User> userList = new ArrayList<User>();
+                COLUMN_WALKER_EMAIL + " ASC";
+        List<Walker> walkerList = new ArrayList<Walker>();
         SQLiteDatabase db = this.getReadableDatabase();
         // query the user table
         /**
@@ -90,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * SQL query equivalent to this query function is
          * SELECT user_id,user_name,user_email,user_password FROM user ORDER BY user_name;
          */
-        Cursor cursor = db.query(TABLE_USER, //Table to query
+        Cursor cursor = db.query(TABLE_WALKER, //Table to query
                 columns,    //columns to return
                 null,        //columns for the WHERE clause
                 null,        //The values for the WHERE clause
@@ -100,46 +116,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Traversing through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                User user = new User();
-                user.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_USER_ID))));
-                user.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_USER_EMAIL)));
-                user.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_USER_PASSWORD)));
-                user.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_USER_USERNAME)));
+                Walker walker = new Walker();
+                walker.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_WALKER_ID))));
+                walker.setEmail(cursor.getString(cursor.getColumnIndex(COLUMN_WALKER_EMAIL)));
+                walker.setPassword(cursor.getString(cursor.getColumnIndex(COLUMN_WALKER_PASSWORD)));
+                walker.setUsername(cursor.getString(cursor.getColumnIndex(COLUMN_WALKER_USERNAME)));
+                walker.setLatitude(cursor.getDouble(cursor.getColumnIndex(COLUMN_WALKER_LATITUDE)));
+                walker.setLongitude(cursor.getDouble(cursor.getColumnIndex(COLUMN_WALKER_LONGITUDE)));
+                walker.setBusy(cursor.getInt(cursor.getColumnIndex(COLUMN_WALKER_BUSY)));
+                walker.setOnline(cursor.getInt(cursor.getColumnIndex(COLUMN_WALKER_ONLINE)));
                 // Adding user record to list
-                userList.add(user);
+                walkerList.add(walker);
             } while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
         // return user list
-        return userList;
+        return walkerList;
     }
     /**
      * This method to update user record
      *
-     * @param user
+     * @param walker
      */
-    public void updateUser(User user) {
+    public void updateWalker(Walker walker) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_USER_EMAIL, user.getEmail());
-        values.put(COLUMN_USER_PASSWORD, user.getPassword());
-        values.put(COLUMN_USER_USERNAME, user.getUsername());
+        values.put(COLUMN_WALKER_EMAIL, walker.getEmail());
+        values.put(COLUMN_WALKER_PASSWORD, walker.getPassword());
+        values.put(COLUMN_WALKER_USERNAME, walker.getUsername());
+        values.put(COLUMN_WALKER_LATITUDE, walker.getLatitude());
+        values.put(COLUMN_WALKER_LONGITUDE, walker.getLongitude());
+        values.put(COLUMN_WALKER_BUSY, walker.getBusy());
+        values.put(COLUMN_WALKER_ONLINE, walker.getOnline());
         // updating row
-        db.update(TABLE_USER, values, COLUMN_USER_ID + " = ?",
-                new String[]{String.valueOf(user.getId())});
+        db.update(TABLE_WALKER, values, COLUMN_WALKER_ID + " = ?",
+                new String[]{String.valueOf(walker.getId())});
         db.close();
     }
     /**
      * This method is to delete user record
      *
-     * @param user
+     * @param walker
      */
-    public void deleteUser(User user) {
+    public void deleteWalker(Walker walker) {
         SQLiteDatabase db = this.getWritableDatabase();
         // delete user record by id
-        db.delete(TABLE_USER, COLUMN_USER_ID + " = ?",
-                new String[]{String.valueOf(user.getId())});
+        db.delete(TABLE_WALKER, COLUMN_WALKER_ID + " = ?",
+                new String[]{String.valueOf(walker.getId())});
         db.close();
     }
     /**
@@ -148,14 +172,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param email
      * @return true/false
      */
-    public boolean checkUser(String email) {
+    public boolean checkWalker(String email) {
         // array of columns to fetch
         String[] columns = {
-                COLUMN_USER_ID
+                COLUMN_WALKER_ID
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
-        String selection = COLUMN_USER_EMAIL + " = ?";
+        String selection = COLUMN_WALKER_EMAIL + " = ?";
         // selection argument
         String[] selectionArgs = {email};
         // query user table with condition
@@ -164,7 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * SQL query equivalent to this query function is
          * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com';
          */
-        Cursor cursor = db.query(TABLE_USER, //Table to query
+        Cursor cursor = db.query(TABLE_WALKER, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
                 selectionArgs,              //The values for the WHERE clause
@@ -186,14 +210,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param password
      * @return true/false
      */
-    public boolean checkUser(String email, String password) {
+    public boolean checkWalker(String email, String password) {
         // array of columns to fetch
         String[] columns = {
-                COLUMN_USER_ID
+                COLUMN_WALKER_ID
         };
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
-        String selection = COLUMN_USER_EMAIL + " = ?" + " AND " + COLUMN_USER_PASSWORD + " = ?";
+        String selection = COLUMN_WALKER_EMAIL + " = ?" + " AND " + COLUMN_WALKER_PASSWORD + " = ?";
         // selection arguments
         String[] selectionArgs = {email, password};
         // query user table with conditions
@@ -202,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
          * SQL query equivalent to this query function is
          * SELECT user_id FROM user WHERE user_email = 'jack@androidtutorialshub.com' AND user_password = 'qwerty';
          */
-        Cursor cursor = db.query(TABLE_USER, //Table to query
+        Cursor cursor = db.query(TABLE_WALKER, //Table to query
                 columns,                    //columns to return
                 selection,                  //columns for the WHERE clause
                 selectionArgs,              //The values for the WHERE clause

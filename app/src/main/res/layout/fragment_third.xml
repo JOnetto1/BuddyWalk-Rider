@@ -26,10 +26,10 @@
                 android:src="@drawable/person" />
 
             <TextView
+                android:id="@+id/nombreUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="Juanito Perez"
                 android:textSize="25dp" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -63,10 +63,29 @@
         android:id="@+id/imageView2"
         android:layout_width="257dp"
         android:layout_height="558dp"
+        android:layout_marginLeft="55dp"
         android:adjustViewBounds="false"
         android:cropToPadding="false"
         android:scaleType="fitEnd"
-        android:src="@drawable/buddy"
-        android:layout_marginLeft="55dp"/>
+        android:src="@drawable/buddy" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1379dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="Bottom of the screen"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large">
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Delete Account" />
+
+
+    </LinearLayout>
 
 </FrameLayout>

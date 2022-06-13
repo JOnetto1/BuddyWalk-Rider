@@ -9,29 +9,50 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
-import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.grimlin31.buddywalkowner.FragmentContainer.FirstFragment;
 import com.grimlin31.buddywalkowner.FragmentContainer.SecondFragment;
 import com.grimlin31.buddywalkowner.FragmentContainer.ThirdFragment;
 import com.grimlin31.buddywalkowner.SaveSharedPreferences.SavedSharedPreference;
 
-public class WalkRiderHomeActivity extends AppCompatActivity {
+public class WalkRiderHomeActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener,
+        OnMapReadyCallback {
 
-    FirstFragment firstFragment = new FirstFragment();
+    FirstFragment  firstFragment = new FirstFragment();
     SecondFragment secondFragment = new SecondFragment();
-    ThirdFragment thirdFragment = new ThirdFragment();
+    ThirdFragment  thirdFragment = new ThirdFragment();
+    private static final int TAG_CODE_PERMISSION_LOCATION = 1;
+    private String walkerIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_walk_rider_home);
+
+        Intent intent = getIntent();
+        walkerIndex = intent.getStringExtra("walkerIndex");
+        //Log.i("Hola", walkerIndex);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("walkerIndex", walkerIndex);
+        secondFragment.setArguments(bundle);
+        thirdFragment.setArguments(bundle);
 
         BottomNavigationView navigation = findViewById(R.id.home_navigator);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -115,6 +136,50 @@ public class WalkRiderHomeActivity extends AppCompatActivity {
 
     public void toLogout(View view) {
         SavedSharedPreference.clearUserName(WalkRiderHomeActivity.this);
+        FirebaseAuth.getInstance().signOut();
         finish();
+        System.exit(0);
+    }
+
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        String message = marker.getId();
+        intent.putExtra("Hola", message);
+        startActivity(intent);
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+            LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+        } else {
+            ActivityCompat.requestPermissions(this, new String[] {
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION },
+                    TAG_CODE_PERMISSION_LOCATION);
+        }
     }
 }

@@ -20,6 +20,9 @@
             android:value="AIzaSyCA2krG7_Y4FRK3oJtNyhkwezHpmOuHjSs"/>
 
         <activity
+            android:name=".EditActivity"
+            android:exported="true"/>
+        <activity
             android:name=".WalkRiderHomeActivity"
             android:exported="true" />
         <activity

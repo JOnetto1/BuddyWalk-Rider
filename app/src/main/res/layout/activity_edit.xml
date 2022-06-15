@@ -22,7 +22,7 @@
                 android:layout_marginLeft="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/register"
+                android:text="@string/edit"
                 android:textColor="@color/md_theme_light_onPrimary"
                 android:textSize="50dp" />
 
@@ -35,14 +35,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/md_theme_light_onPrimary"
                     android:textSize="20dp"
-                    android:text="@string/sign_up"/>
-                <TextView
-                    android:paddingLeft="8dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/md_theme_light_onPrimary"
-                    android:textSize="20dp"
-                    android:text="@string/to_continue"/>
+                    android:text="@string/change"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -148,7 +141,7 @@
                 android:layout_weight="1">
 
                 <Button
-                    android:id="@+id/register"
+                    android:id="@+id/edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
@@ -156,7 +149,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/round_button"
                     android:textStyle="bold"
-                    android:text="@string/register">
+                    android:text="@string/changes">
                 </Button>
 
             </LinearLayout>

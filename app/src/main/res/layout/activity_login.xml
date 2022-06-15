@@ -131,6 +131,7 @@
             android:layout_weight="0.6"
             android:orientation="vertical">
             <Button
+                android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -139,7 +140,6 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/round_button"
                 android:textStyle="bold"
-                android:onClick="toLogin"
                 android:text="@string/login">
             </Button>
 

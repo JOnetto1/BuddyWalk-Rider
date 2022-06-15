@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.grimlin31.buddywalkowner.R;
 import com.grimlin31.buddywalkowner.WalkRiderHomeActivity;
 
@@ -52,11 +54,9 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
     GoogleMap mMap;
     MapView mMapView;
     View mView;
-    LocationManager locManager;
-    LocationListener locListener;
-    Location loc;
     LatLng latLng;
     List<Marker> markers;
+    private DatabaseReference ref;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,6 +66,7 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String walkerIndex;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -102,7 +103,11 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+        Bundle data = getArguments();
+        if(data != null) {
+            walkerIndex = data.getString("walkerIndex");
+        }
         mView = inflater.inflate(R.layout.fragment_second, container, false);
         return mView;
     }
@@ -130,7 +135,31 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
             map.getUiSettings().setMyLocationButtonEnabled(true);
 
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            ref = FirebaseDatabase.getInstance().getReference();
+            LocationListener locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    ref.child("walker").child(walkerIndex).child("latitude").setValue(location.getLatitude());
+                    ref.child("walker").child(walkerIndex).child("longitude").setValue(location.getLongitude());
+
+                        /*mMap.addMarker(new MarkerOptions()
+                                .position(lugar)
+                                .title("Marker in Sydney"));*/
+                }
+
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                public void onProviderEnabled(String provider) {
+                }
+
+                public void onProviderDisabled(String provider) {
+                }
+            };
+
+            int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
             map.setOnMarkerClickListener(this);
             map.getUiSettings().setMapToolbarEnabled(false);

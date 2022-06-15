@@ -9,10 +9,17 @@
     <string name="sign_up">Sign Up</string>
     <string name="userName">Username</string>
     <string name="register">Register</string>
+    <string name="edit">Edit</string>
+    <string name="change">Change your account info</string>
+    <string name="changes">Apply changes</string>
     <string name="email">Email</string>
     <string name="pass">Password</string>
     <string name="passConfirm">Confirm Password</string>
+    <string name="dialogTitle">Delete this account?</string>
+    <string name="dialogMessage">All data will be lost!</string>
     <string name="or">OR</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string name="google_sign_in">Sign in with Google</string>
     <string name="forgotPass">FORGOT PASSWORD?</string>
     <string name="new_user">New User?</string>

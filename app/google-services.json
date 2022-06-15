@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "881473130201",
+    "firebase_url": "https://buddywalker-a0458-default-rtdb.firebaseio.com",
+    "project_id": "buddywalker-a0458",
+    "storage_bucket": "buddywalker-a0458.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881473130201:android:603268d8b10bb12869f8c8",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881473130201-8h17de02uc4oq6fd9guml6e51tpcsuod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZsTWSAHEgRogtYZwvNvGvCLA9O8jv98c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881473130201-8h17de02uc4oq6fd9guml6e51tpcsuod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881473130201:android:0bba0ab6f783e70a69f8c8",
+        "android_client_info": {
+          "package_name": "com.grimlin31.buddywalkowner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881473130201-8h17de02uc4oq6fd9guml6e51tpcsuod.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZsTWSAHEgRogtYZwvNvGvCLA9O8jv98c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "881473130201-8h17de02uc4oq6fd9guml6e51tpcsuod.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

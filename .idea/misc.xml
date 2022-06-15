@@ -30,12 +30,14 @@
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/drawable/round_button.xml" value="0.1" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/drawable/round_button_google.xml" value="0.1" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/drawable/round_inputs.xml" value="0.1" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_edit.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_register.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_walk_rider_home.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_first.xml" value="0.2826086956521739" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.2826086956521739" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.2826086956521739" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.1" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.1" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/menu/home_navigator.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/mipmap-anydpi-v26/buddywalk_icons.xml" value="0.1" />
       </map>
     </option>

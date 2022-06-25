@@ -3,15 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/drawable/email.xml" value="0.1215" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/drawable/ic_baseline_description_24.xml" value="0.1215" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/drawable/round_button.xml" value="0.137" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/drawable/round_button_google.xml" value="0.137" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/drawable/round_button_red.xml" value="0.18" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_edit.xml" value="0.2" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_main.xml" value="0.1203125" />
-        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_register.xml" value="0.22" />
-        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_walk_rider_home.xml" value="0.1265625" />
-        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/fragment_first.xml" value="0.1265625" />
-        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.1265625" />
-        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_register.xml" value="0.14221014492753623" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/activity_walk_rider_home.xml" value="0.25" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/fragment_first.xml" value="0.33" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.33" />
+        <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.33" />
         <entry key="..\:/Users/Josefina Onetto/Documents/GitHub/BuddyWalk-Rider/app/src/main/res/layout/second_activity.xml" value="0.1203125" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.202" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/App/app/src/main/res/layout/activity_main.xml" value="0.25" />
@@ -30,14 +34,12 @@
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/drawable/round_button.xml" value="0.1" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/drawable/round_button_google.xml" value="0.1" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/drawable/round_inputs.xml" value="0.1" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_edit.xml" value="0.17603850050658562" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_register.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_walk_rider_home.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_first.xml" value="0.2826086956521739" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.1" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.1" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/menu/home_navigator.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.2826086956521739" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.2826086956521739" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/mipmap-anydpi-v26/buddywalk_icons.xml" value="0.1" />
       </map>
     </option>

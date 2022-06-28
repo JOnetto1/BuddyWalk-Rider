@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.grimlin31.buddywalkowner.model.Notification;
 import com.grimlin31.buddywalkowner.model.Walker;
 import com.grimlin31.buddywalkowner.sql.DatabaseHelper;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
     private DatabaseHelper databaseHelper;
@@ -63,6 +67,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(view -> {
             EditText username = (EditText) findViewById(R.id.et_username);
             EditText email = (EditText) findViewById(R.id.et_email);
+            EditText telephone = (EditText) findViewById(R.id.et_phone);
             EditText password = (EditText) findViewById(R.id.et_password);
             EditText password2 = (EditText) findViewById(R.id.et_confirmpass);
 
@@ -77,8 +82,10 @@ public class RegisterActivity extends AppCompatActivity {
             else {
                 String username_str = username.getText().toString();
                 String mail = email.getText().toString();
+                String phone = telephone.getText().toString();
                 String pass = password.getText().toString();
-                walker = new Walker(id + 1, mail, pass, username_str, -33.034705, -71.596523, 0, 0);
+                List<Notification> notifications = new LinkedList<Notification>();
+                walker = new Walker(id + 1, mail, phone, pass, username_str, -33.034705, -71.596523, 0, 0, notifications);
                 databaseHelper.addUser(walker);
                 onRegister(mail, pass);
             }

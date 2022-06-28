@@ -1,14 +1,18 @@
 package com.grimlin31.buddywalkowner.model;
 
+import java.util.List;
+
 public class Walker {
     private int id;
     private String email;
+    private String phone;
     private String password;
     private String username;
     private double lat;
     private double lon;
     private int busy;
     private int online;
+    private List<Notification> notifications;
 
     public Walker(){
 
@@ -18,15 +22,17 @@ public class Walker {
 
     }
 
-    public Walker(int id, String email, String password, String username, double lat, double lon, int busy, int online){
+    public Walker(int id, String email, String phone, String password, String username, double lat, double lon, int busy, int online, List<Notification> notifications){
         this.id = id;
         this.email = email;
+        this.phone = phone;
         this.password = password;
         this.username = username;
         this.lat = lat;
         this.lon = lon;
         this.busy = busy;
         this.online = online;
+        this.notifications = notifications;
     }
 
     public int getId() {
@@ -47,6 +53,8 @@ public class Walker {
     public void setEmail(String email) {
         this.email = email;
     }
+    public String getPhone() {return phone;}
+    public void setPhone(String phone) {this.phone = phone;}
     public String getPassword() {
         return password;
     }
@@ -69,4 +77,10 @@ public class Walker {
     public void setBusy(int busy){this.busy = busy;}
     public int getOnline() {return online;}
     public void setOnline(int online) {this.online = online;}
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+    public void setPets(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
 }

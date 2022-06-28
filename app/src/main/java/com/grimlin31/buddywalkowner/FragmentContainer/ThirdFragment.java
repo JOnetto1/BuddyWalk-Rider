@@ -114,7 +114,7 @@ public class ThirdFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        username = (TextView) getView().findViewById(R.id.nombreUsuario);
+        //username = (TextView) getView().findViewById(R.id.nombreUsuario);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("walker");
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -129,7 +129,6 @@ public class ThirdFragment extends Fragment {
                 // Handle possible errors.
             }
         });
-        username.setText("Hola " + nombre + "!");
     }
 
     public void deleteAccount() {
@@ -150,6 +149,7 @@ public class ThirdFragment extends Fragment {
                         if (task.isSuccessful()) {
                             ref = FirebaseDatabase.getInstance().getReference();
                             ref.child("walker").child(walkerIndex).removeValue();
+                            Log.i("Hola", walkerIndex);
                             Toast.makeText(getActivity(), "Account was successfully deleted!", Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                             System.exit(0);

@@ -13,6 +13,7 @@
     <string name="change">Change your account info</string>
     <string name="changes">Apply changes</string>
     <string name="email">Email</string>
+    <string name="phone">Number</string>
     <string name="pass">Password</string>
     <string name="passConfirm">Confirm Password</string>
     <string name="dialogTitle">Delete this account?</string>

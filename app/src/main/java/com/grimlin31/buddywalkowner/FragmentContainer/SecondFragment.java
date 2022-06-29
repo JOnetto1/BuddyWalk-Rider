@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -210,9 +211,10 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
 
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        Intent intent = new Intent(getActivity(), FirstFragment.class);
-        String message = marker.getId();
-        intent.putExtra(EXTRA_MESSAGE, message);
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+        Uri myUri = Uri.parse("geo:0,0?q=" + marker.getPosition().latitude +"," + marker.getPosition().longitude);
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, myUri);
         startActivity(intent);
 
         // Return false to indicate that we have not consumed the event and that we wish

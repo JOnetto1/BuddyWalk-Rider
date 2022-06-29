@@ -130,6 +130,19 @@ public class WalkPage extends AppCompatActivity implements GoogleMap.OnMyLocatio
 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                ref = FirebaseDatabase.getInstance().getReference().child("walker").child(walkerIndex);
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ref.child("busy").setValue(1);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Handle possible errors.
+                    }
+                });
+
                 Toast.makeText(WalkPage.this, "Your walk was confirmed!", Toast.LENGTH_SHORT).show();
                 Intent confirm = new Intent(WalkPage.this, WalkRiderHomeActivity.class);
                 confirm.putExtra("userIndex", userIndex);

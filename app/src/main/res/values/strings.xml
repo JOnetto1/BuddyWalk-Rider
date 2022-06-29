@@ -14,11 +14,14 @@
     <string name="changes">Apply changes</string>
     <string name="email">Email</string>
     <string name="phone">Number</string>
+    <string name="confirm">Confirm</string>
+    <string name="sure">Are you sure?</string>
     <string name="pass">Password</string>
     <string name="passConfirm">Confirm Password</string>
     <string name="dialogTitle">Delete this account?</string>
     <string name="dialogMessage">All data will be lost!</string>
     <string name="or">OR</string>
+    <string name="yes">Yes</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="google_sign_in">Sign in with Google</string>

@@ -10,7 +10,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -25,7 +24,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -34,11 +32,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.grimlin31.buddywalkowner.R;
-import com.grimlin31.buddywalkowner.WalkRiderHomeActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +62,10 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String userIndex;
     private String walkerIndex;
+    private double latitude;
+    private double longitude;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -107,6 +106,11 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
         Bundle data = getArguments();
         if(data != null) {
             walkerIndex = data.getString("walkerIndex");
+            if(!Objects.equals(data.getString("userIndex"), "")) {
+                userIndex = data.getString("userIndex");
+                latitude = Double.parseDouble(data.getString("latitude"));
+                longitude = Double.parseDouble(data.getString("longitude"));
+            }
         }
         mView = inflater.inflate(R.layout.fragment_second, container, false);
         return mView;
@@ -142,10 +146,6 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
                 public void onLocationChanged(@NonNull Location location) {
                     ref.child("walker").child(walkerIndex).child("latitude").setValue(location.getLatitude());
                     ref.child("walker").child(walkerIndex).child("longitude").setValue(location.getLongitude());
-
-                        /*mMap.addMarker(new MarkerOptions()
-                                .position(lugar)
-                                .title("Marker in Sydney"));*/
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -157,6 +157,12 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
                 public void onProviderDisabled(String provider) {
                 }
             };
+
+            if(userIndex != null) {
+                Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
+                        .title("Meetup location"));
+                marker.showInfoWindow();
+            }
 
             int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,8 @@ import com.grimlin31.buddywalkowner.FragmentContainer.FirstFragment;
 import com.grimlin31.buddywalkowner.FragmentContainer.SecondFragment;
 import com.grimlin31.buddywalkowner.FragmentContainer.ThirdFragment;
 import com.grimlin31.buddywalkowner.SaveSharedPreferences.SavedSharedPreference;
+
+import java.util.Objects;
 
 public class WalkRiderHomeActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener,
@@ -50,6 +53,19 @@ public class WalkRiderHomeActivity extends AppCompatActivity implements GoogleMa
 
         Bundle bundle = new Bundle();
         bundle.putString("walkerIndex", walkerIndex);
+        if(!Objects.equals(intent.getStringExtra("userIndex"), "")) {
+            bundle.putString("userIndex", intent.getStringExtra("userIndex"));
+            LatLng latLng = new LatLng(intent.getDoubleExtra("latitude", 0),
+                    intent.getDoubleExtra("longitude", 0));
+            bundle.putString("latitude", String.valueOf(latLng.latitude));
+            bundle.putString("longitude", String.valueOf(latLng.longitude));
+        }
+        else {
+            bundle.putString("userIndex", "");
+            bundle.putString("latitude", "");
+            bundle.putString("longitude", "");
+        }
+
         firstFragment.setArguments(bundle);
         secondFragment.setArguments(bundle);
         thirdFragment.setArguments(bundle);

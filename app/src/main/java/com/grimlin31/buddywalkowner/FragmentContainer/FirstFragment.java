@@ -1,5 +1,6 @@
 package com.grimlin31.buddywalkowner.FragmentContainer;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.grimlin31.buddywalkowner.R;
+import com.grimlin31.buddywalkowner.WalkPage;
 import com.grimlin31.buddywalkowner.model.Item;
 import com.grimlin31.buddywalkowner.model.Notification;
 import com.grimlin31.buddywalkowner.model.Walker;
@@ -78,9 +80,6 @@ public class FirstFragment extends Fragment{
         return fragment;
     }
 
-    String[] COUNTRIES = {"Argentina", "Bolivia", "Chile", "China", "Colombia", "España", "Estados Unidos",
-            "Francia", "Italia", "Panamá", "Perú", "Puerto Rico", "Rusia", "Uruguay", "Venezuela"};
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,9 +94,9 @@ public class FirstFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle data = getArguments();
-        if(data != null){
+        if(data != null)
             walkerIndex = data.getString("walkerIndex");
-        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
@@ -121,7 +120,8 @@ public class FirstFragment extends Fragment{
                     userRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            dataForTheAdapter.add(new Item(String.valueOf(dataSnapshot.child(userIndex).child("username").getValue()), userIndex));
+                            dataForTheAdapter.add(new Item(String.valueOf(dataSnapshot.child(userIndex).child("username").getValue()),
+                                    userIndex, child.getKey()));
                             adapter.notifyDataSetChanged();
                         }
 
@@ -141,8 +141,11 @@ public class FirstFragment extends Fragment{
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Hola", String.valueOf(adapter.getItem(position).getLink()));
-                //textView.setText("The best football player is : " + selectedItem);
+                Intent walkPage = new Intent(getActivity(), WalkPage.class);
+                walkPage.putExtra("userIndex", adapter.getItem(position).getUserIndex());
+                walkPage.putExtra("walkerIndex", walkerIndex);
+                walkPage.putExtra("notification", adapter.getItem(position).getNotification());
+                startActivity(walkPage);
             }
         });
     }

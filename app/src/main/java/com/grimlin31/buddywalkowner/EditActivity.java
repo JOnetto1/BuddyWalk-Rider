@@ -99,7 +99,8 @@ public class EditActivity extends AppCompatActivity {
                             //updatePassword();
                         }
                     });
-            Intent gotoHome = new Intent(EditActivity.this, SecondFragment.class);
+            Intent gotoHome = new Intent(EditActivity.this, WalkRiderHomeActivity.class);
+            gotoHome.putExtra("walkerIndex", walkerIndex);
             startActivity(gotoHome);
         }
     }

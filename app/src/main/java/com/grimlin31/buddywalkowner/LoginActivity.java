@@ -143,6 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                         String walkerIndex = child.getKey();
                         //Log.i("Hola", walkerIndex);
                         gotoHome.putExtra("walkerIndex", walkerIndex);
+                        gotoHome.putExtra("userIndex", "");
+                        gotoHome.putExtra("latitude", "");
+                        gotoHome.putExtra("longitude", "");
                         startActivity(gotoHome);
                         emptyInputEditText();
                     }

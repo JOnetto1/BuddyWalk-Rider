@@ -3,22 +3,24 @@ package com.grimlin31.buddywalkowner.model;
 public class Item {
 
     private String mName;
-    private String mLink;
+    private String userIndex;
+    private String notification;
 
-    public Item(String name, String link) {
+    public Item(String name, String userIndex, String notification) {
 
         this.mName = name;
-        this.mLink = link;
+        this.userIndex = userIndex;
+        this.notification = notification;
     }
 
-    public String getLink() {
+    public String getUserIndex() {
 
-        return mLink;
+        return userIndex;
     }
 
-    public void setLink(String link) {
+    public void setUserIndex(String userIndex) {
 
-        this.mLink = link;
+        this.userIndex = userIndex;
     }
 
     public String getName() {
@@ -27,8 +29,15 @@ public class Item {
     }
 
     public void setName(String name) {
-
         this.mName = name;
+    }
+
+    public String getNotification(){
+        return notification;
+    }
+
+    public void setNotification(String notification){
+        this.notification = notification;
     }
 
     @Override

@@ -5,24 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".FragmentContainer.FirstFragment">
 
-
-    <LinearLayout
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/lv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:padding="10dp"
-            android:text="" />
-
-        <TextView
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Your walk history will go here. Book a walk to begin"/>
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        tools:context=".FirstFragment" />
 
 </FrameLayout>

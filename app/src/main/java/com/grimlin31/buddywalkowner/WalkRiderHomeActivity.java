@@ -47,10 +47,10 @@ public class WalkRiderHomeActivity extends AppCompatActivity implements GoogleMa
 
         Intent intent = getIntent();
         walkerIndex = intent.getStringExtra("walkerIndex");
-        //Log.i("Hola", walkerIndex);
 
         Bundle bundle = new Bundle();
         bundle.putString("walkerIndex", walkerIndex);
+        firstFragment.setArguments(bundle);
         secondFragment.setArguments(bundle);
         thirdFragment.setArguments(bundle);
 

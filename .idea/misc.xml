@@ -34,9 +34,12 @@
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_register.xml" value="0.2821557971014493" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/activity_walk_rider_home.xml" value="0.16" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_first.xml" value="0.2826086956521739" />
-        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.25" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/done_notifications.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_first.xml" value="0.1" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_second.xml" value="0.1" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/fragment_third.xml" value="0.22" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/pending_notifications.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/pending_page.xml" value="0.1757852077001013" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/layout/walk_page.xml" value="0.17753623188405798" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/menu/home_navigator.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/natob/AndroidStudioProjects/BuddyWalk-Rider/app/src/main/res/mipmap-anydpi-v26/buddywalk_icons.xml" value="0.1" />

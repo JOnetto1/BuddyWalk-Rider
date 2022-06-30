@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WalkPage">
+    tools:context=".notifications.DonePage">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,11 +32,12 @@
                 android:layout_height="match_parent" />
 
         </LinearLayout>
+
         <Button
-            android:id="@+id/confirmButton"
+            android:id="@+id/callButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/confirm" />
+            android:text="@string/call" />
         />
 
     </LinearLayout>

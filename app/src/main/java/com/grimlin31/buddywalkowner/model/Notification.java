@@ -1,7 +1,7 @@
 package com.grimlin31.buddywalkowner.model;
 
 public class Notification {
-    private int id;
+    private int pending;
     private String userIndex;
     private String message;
     private double lat;
@@ -11,15 +11,15 @@ public class Notification {
 
     }
 
-    public Notification(int id, String userIndex, String message, double lat, double lon){
-        this.id = id;
+    public Notification(int pending, String userIndex, String message, double lat, double lon){
+        this.pending = pending; // 0: now, 1: done, 2: pending
         this.userIndex = userIndex;
         this.message = message;
         this.lat = lat;
         this.lon = lon;
     }
 
-    public int getId(){return id;}
+    public int getPending(){return pending;}
     public String getUserIndex(){return userIndex;}
     public String getMessage(){return message;}
     public double getLatitude(){return lat;}

@@ -59,9 +59,11 @@ public class WalkRiderHomeActivity extends AppCompatActivity implements GoogleMa
                     intent.getDoubleExtra("longitude", 0));
             bundle.putString("latitude", String.valueOf(latLng.latitude));
             bundle.putString("longitude", String.valueOf(latLng.longitude));
+            bundle.putString("notification", intent.getStringExtra("notification"));
         }
         else {
             bundle.putString("userIndex", "");
+            bundle.putString("notification", "");
             bundle.putString("latitude", "");
             bundle.putString("longitude", "");
         }
@@ -159,11 +161,6 @@ public class WalkRiderHomeActivity extends AppCompatActivity implements GoogleMa
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        String message = marker.getId();
-        intent.putExtra("Hola", message);
-        startActivity(intent);
-
         // Return false to indicate that we have not consumed the event and that we wish
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).

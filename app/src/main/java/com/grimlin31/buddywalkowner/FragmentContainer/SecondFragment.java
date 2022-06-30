@@ -1,7 +1,9 @@
 package com.grimlin31.buddywalkowner.FragmentContainer;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -30,9 +32,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.grimlin31.buddywalkowner.R;
+import com.grimlin31.buddywalkowner.WalkRiderHomeActivity;
 
 import java.util.List;
 import java.util.Objects;
@@ -53,7 +60,8 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
     View mView;
     LatLng latLng;
     List<Marker> markers;
-    private DatabaseReference ref;
+    private DatabaseReference ref1;
+    private DatabaseReference ref2;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,8 +73,10 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
     private String mParam2;
     private String userIndex;
     private String walkerIndex;
+    private String notification;
     private double latitude;
     private double longitude;
+    private FloatingActionButton cancel;
 
     public SecondFragment() {
         // Required empty public constructor
@@ -109,11 +119,13 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
             walkerIndex = data.getString("walkerIndex");
             if(!Objects.equals(data.getString("userIndex"), "")) {
                 userIndex = data.getString("userIndex");
+                notification = data.getString("notification");
                 latitude = Double.parseDouble(data.getString("latitude"));
                 longitude = Double.parseDouble(data.getString("longitude"));
             }
         }
         mView = inflater.inflate(R.layout.fragment_second, container, false);
+        cancel = (FloatingActionButton) mView.findViewById(R.id.cancel);
         return mView;
     }
 
@@ -127,6 +139,12 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
             mMapView.onResume();
             mMapView.getMapAsync(this);
         }
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cancel(walkerIndex);
+            }
+        });
     }
 
     @Override
@@ -141,12 +159,12 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
 
             LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-            ref = FirebaseDatabase.getInstance().getReference();
+            ref1 = FirebaseDatabase.getInstance().getReference();
             LocationListener locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(@NonNull Location location) {
-                    ref.child("walker").child(walkerIndex).child("latitude").setValue(location.getLatitude());
-                    ref.child("walker").child(walkerIndex).child("longitude").setValue(location.getLongitude());
+                    ref1.child("walker").child(walkerIndex).child("latitude").setValue(location.getLatitude());
+                    ref1.child("walker").child(walkerIndex).child("longitude").setValue(location.getLongitude());
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -163,6 +181,10 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
                 Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
                         .title("Meetup location"));
                 marker.showInfoWindow();
+                cancel.setVisibility(View.VISIBLE);
+            }
+            else{
+                cancel.setVisibility(View.GONE);
             }
 
             int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
@@ -170,6 +192,7 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
 
             map.setOnMarkerClickListener(this);
             map.getUiSettings().setMapToolbarEnabled(false);
+
         } else {
             ActivityCompat.requestPermissions(getActivity(), new String[] {
                             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -221,6 +244,56 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
         // for the default behavior to occur (which is for the camera to move such that the
         // marker is centered and for the marker's info window to open, if it has one).
         return false;
+    }
+
+    private void cancel(String walkerIndex){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.sureCancel);
+        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ref2 = FirebaseDatabase.getInstance().getReference().child("walker").child(walkerIndex);
+                ref2.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ref2.child("busy").setValue(0);
+                        ref2.child("notifications").child(notification).child("pending").setValue(1);
+                        DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference().child("user").child(userIndex);
+                        ref3.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                ref3.child("notifications").child(notification).child("pending").setValue(1);
+                                ref3.child("current").removeValue();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Handle possible errors.
+                    }
+                });
+
+                Intent refresh = new Intent(getActivity(), WalkRiderHomeActivity.class);
+                refresh.putExtra("userIndex", "");
+                refresh.putExtra("walkerIndex", walkerIndex);
+                refresh.putExtra("latitude", "");
+                refresh.putExtra("longitude", "");
+                startActivity(refresh);
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }

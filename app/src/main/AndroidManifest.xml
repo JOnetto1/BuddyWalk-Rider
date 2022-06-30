@@ -38,7 +38,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WalkPage"
+            android:name=".notifications.DonePage"
+            android:exported="true"/>
+        <activity
+            android:name=".notifications.PendingPage"
+            android:exported="true"/>
+        <activity
+            android:name=".notifications.PendingNotifications"
+            android:exported="true"/>
+        <activity
+            android:name=".notifications.DoneNotifications"
             android:exported="true"/>
     </application>
 

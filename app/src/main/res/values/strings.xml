@@ -23,6 +23,8 @@
     <string name="or">OR</string>
     <string name="yes">Yes</string>
     <string name="ok">OK</string>
+    <string name="call">Call</string>
+    <string name="sureCancel">Are you sure you want to cancel?</string>
     <string name="cancel">Cancel</string>
     <string name="google_sign_in">Sign in with Google</string>
     <string name="forgotPass">FORGOT PASSWORD?</string>

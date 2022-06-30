@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -20,9 +21,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Walk History"
+                android:text="Done Notifications"
                 android:textColor="@color/md_theme_light_onPrimary"
-                android:textSize="50dp">
+                android:textSize="40dp">
             </TextView>
 
         </LinearLayout>
@@ -30,28 +31,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            android:layout_weight="8"
-            android:gravity="center">
+            android:orientation="horizontal"
+            android:layout_weight="8">
 
-                <Button
-                    android:id="@+id/pending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_button"
-                    android:text="Pending Notifications"
-                    android:layout_marginBottom="10dp">
-                </Button>
-                <Button
-                    android:id="@+id/done"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_button"
-                    android:text="Done Notifications">
-                </Button>
+            <ListView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/lv"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".FirstFragment" />
+
         </LinearLayout>
-
-
     </LinearLayout>
 
 </FrameLayout>

@@ -152,6 +152,7 @@ public class PendingPage extends AppCompatActivity implements GoogleMap.OnMyLoca
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ref.child("busy").setValue(1);
+                        ref.child("current").setValue(notification);
                         ref.child("notifications").child(notification).child("pending").setValue(0);
                         DatabaseReference refUser = FirebaseDatabase.getInstance().getReference().child("user").child(userIndex);
                         refUser.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -77,7 +77,6 @@ public class FirstFragment extends Fragment{
         pending.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.i("Hola", "Hola");
                 Intent intent = new Intent(getActivity(), PendingNotifications.class);
                 intent.putExtra("walkerIndex", walkerIndex);
                 startActivity(intent);

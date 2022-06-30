@@ -119,7 +119,6 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
             walkerIndex = data.getString("walkerIndex");
             if(!Objects.equals(data.getString("userIndex"), "")) {
                 userIndex = data.getString("userIndex");
-                notification = data.getString("notification");
                 latitude = Double.parseDouble(data.getString("latitude"));
                 longitude = Double.parseDouble(data.getString("longitude"));
             }
@@ -139,6 +138,7 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
             mMapView.onResume();
             mMapView.getMapAsync(this);
         }
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,16 +176,30 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
                 public void onProviderDisabled(String provider) {
                 }
             };
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("walker");
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.child(walkerIndex).child("current").getValue() != null) {
+                        notification = String.valueOf(dataSnapshot.child(walkerIndex).child("current").getValue());
+                        Marker marker = map.addMarker(new MarkerOptions().position(new LatLng((Double) dataSnapshot.child(walkerIndex).child("notifications").
+                                        child(notification).child("latitude").getValue(), (Double) dataSnapshot.child(walkerIndex).child("notifications").
+                                        child(notification).child("longitude").getValue()))
+                                .title("Meetup location"));
+                        Log.i("Hola2", notification);
+                        marker.showInfoWindow();
+                        cancel.setVisibility(View.VISIBLE);
+                    }
+                    else{
+                        cancel.setVisibility(View.GONE);
+                    }
+                }
 
-            if(userIndex != null) {
-                Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
-                        .title("Meetup location"));
-                marker.showInfoWindow();
-                cancel.setVisibility(View.VISIBLE);
-            }
-            else{
-                cancel.setVisibility(View.GONE);
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Handle possible errors.
+                }
+            });
 
             int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
@@ -256,6 +270,7 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         ref2.child("busy").setValue(0);
+                        ref2.child("current").removeValue();
                         ref2.child("notifications").child(notification).child("pending").setValue(1);
                         DatabaseReference ref3 = FirebaseDatabase.getInstance().getReference().child("user").child(userIndex);
                         ref3.addListenerForSingleValueEvent(new ValueEventListener() {

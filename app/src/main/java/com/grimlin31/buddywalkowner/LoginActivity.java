@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.grimlin31.buddywalkowner.SaveSharedPreferences.SavedSharedPreference;
+import com.grimlin31.buddywalkowner.model.Walker;
 import com.grimlin31.buddywalkowner.sql.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -94,6 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             //Log.d(TAG, "signInWithCustomToken:success");
                             FirebaseUser walker = mAuth.getCurrentUser();
+
                             SavedSharedPreference.setUserName(LoginActivity.this, email.getText().toString());
                             updateUI(walker);
                         } else {
@@ -141,6 +143,11 @@ public class LoginActivity extends AppCompatActivity {
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     if(currentUser.getEmail().equals(child.child("email").getValue().toString())){
                         String walkerIndex = child.getKey();
+
+                        //Obtener datos usuario y guardar copia local
+                        Walker walker = child.getValue(Walker.class);
+                        SavedSharedPreference.setWalkerData(LoginActivity.this, walker);
+
                         //Log.i("Hola", walkerIndex);
                         gotoHome.putExtra("walkerIndex", walkerIndex);
                         gotoHome.putExtra("userIndex", "");

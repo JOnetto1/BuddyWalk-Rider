@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.grimlin31.buddywalkowner.EditActivity;
 import com.grimlin31.buddywalkowner.R;
+import com.grimlin31.buddywalkowner.SaveSharedPreferences.SavedSharedPreference;
+import com.grimlin31.buddywalkowner.model.Walker;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,7 @@ public class ThirdFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private DatabaseReference ref;
+    private Walker walkerdata;
     private String nombre;
     private String password;
     private String walkerIndex;
@@ -81,6 +85,8 @@ public class ThirdFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        walkerdata = SavedSharedPreference.getWalkerData(getContext());
+
     }
 
     @Override
@@ -90,7 +96,23 @@ public class ThirdFragment extends Fragment {
         if(data != null){
             walkerIndex = data.getString("walkerIndex");
         }
+
         View rootView = inflater.inflate(R.layout.fragment_third, container, false);
+
+        EditText etEmail = rootView.findViewById(R.id.et_settings_email);
+        EditText etPhone = rootView.findViewById(R.id.et_settings_phone);
+        TextView tvUsername = rootView.findViewById(R.id.tv_settings_name);
+
+        if(etEmail != null){
+            etEmail.setText(walkerdata.getEmail());
+        }
+        if(etPhone != null){
+            etPhone.setText(walkerdata.getPhone());
+        }
+        if(tvUsername != null){
+            tvUsername.setText(walkerdata.getUsername());
+        }
+
         Button btnEx = (Button) rootView.findViewById(R.id.edit);
         btnEx.setOnClickListener(new View.OnClickListener() {
             @Override

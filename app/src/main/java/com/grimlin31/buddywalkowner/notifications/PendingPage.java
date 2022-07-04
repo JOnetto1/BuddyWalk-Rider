@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.grimlin31.buddywalkowner.R;
 import com.grimlin31.buddywalkowner.WalkRiderHomeActivity;
+
+import java.util.Objects;
 
 public class PendingPage extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener, GoogleMap.OnMarkerClickListener,
@@ -147,42 +150,63 @@ public class PendingPage extends AppCompatActivity implements GoogleMap.OnMyLoca
 
         builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                ref = FirebaseDatabase.getInstance().getReference().child("walker").child(walkerIndex);
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                DatabaseReference refBusy = FirebaseDatabase.getInstance().getReference()
+                        .child("user").child(userIndex);
+                refBusy.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        ref.child("busy").setValue(1);
-                        ref.child("current").setValue(notification);
-                        ref.child("notifications").child(notification).child("pending").setValue(0);
-                        DatabaseReference refUser = FirebaseDatabase.getInstance().getReference().child("user").child(userIndex);
-                        refUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                refUser.child("notifications").child(notification).child("pending").setValue(0);
-                                refUser.child("current").setValue(notification);
-                            }
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("current").getValue() == null){
+                            ref = FirebaseDatabase.getInstance().getReference().child("walker").child(walkerIndex);
+                            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.child("current").getValue() == null){
+                                        ref.child("busy").setValue(1);
+                                        ref.child("current").setValue(notification);
+                                        ref.child("notifications").child(notification).child("pending").setValue(0);
+                                        DatabaseReference refUser = FirebaseDatabase.getInstance().getReference().child("user").child(userIndex);
+                                        refUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                refUser.child("notifications").child(notification).child("pending").setValue(0);
+                                                refUser.child("current").setValue(notification);
+                                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                                            }
+                                        });
+                                        Toast.makeText(PendingPage.this, "Your walk was confirmed!", Toast.LENGTH_SHORT).show();
+                                        Intent confirm = new Intent(PendingPage.this, WalkRiderHomeActivity.class);
+                                        confirm.putExtra("userIndex", userIndex);
+                                        confirm.putExtra("walkerIndex", walkerIndex);
+                                        confirm.putExtra("notification", notification);
+                                        confirm.putExtra("latitude", latitude);
+                                        confirm.putExtra("longitude", longitude);
+                                        startActivity(confirm);
+                                    }
+                                    else{
+                                        Toast.makeText(PendingPage.this, "You are currently busy!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+                                    // Handle possible errors.
+                                }
+                            });
+                        }
+                        else{
+                            Toast.makeText(PendingPage.this, "This user is busy!", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        // Handle possible errors.
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
-
-                Toast.makeText(PendingPage.this, "Your walk was confirmed!", Toast.LENGTH_SHORT).show();
-                Intent confirm = new Intent(PendingPage.this, WalkRiderHomeActivity.class);
-                confirm.putExtra("userIndex", userIndex);
-                confirm.putExtra("walkerIndex", walkerIndex);
-                confirm.putExtra("notification", notification);
-                confirm.putExtra("latitude", latitude);
-                confirm.putExtra("longitude", longitude);
-                startActivity(confirm);
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

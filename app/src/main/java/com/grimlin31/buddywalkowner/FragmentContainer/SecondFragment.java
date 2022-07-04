@@ -186,7 +186,6 @@ public class SecondFragment extends Fragment implements GoogleMap.OnMyLocationBu
                                         child(notification).child("latitude").getValue(), (Double) dataSnapshot.child(walkerIndex).child("notifications").
                                         child(notification).child("longitude").getValue()))
                                 .title("Meetup location"));
-                        Log.i("Hola2", notification);
                         marker.showInfoWindow();
                         cancel.setVisibility(View.VISIBLE);
                     }
